@@ -27,46 +27,43 @@
 const delay = (time = 1000) => {
 	const promise = new Promise((resolve, reject) => {
 		setTimeout(() => {
-			resolve([1, 2, 3])
+			resolve([1, 2, 3]) // коли отримали дані з сервера
+			// reject('Error in delay') // якщо треба відловити помилку
 		}, time)
 	})
 	return promise
 }
 
-delay(2500)
-	.then(data => {
-		console.log('Timeout', data)
-		return data.map(x => x ** 2)
-	})
-	.then(data => {
-		console.log(data)
-	})
-
+// 1 синтаксис async
+// після точки можна викликати метод
 // delay(2500)
-//   .then((data) => {
-//     console.log('Timeout', data)
-//     return data.map((x) => x ** 2)
-//   })
-//   .then((data) => {
-//     console.log(data)
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-//   .finally(() => console.log('Finally'))
+// 	.then(data => {
+// 		console.log('Timeout', data)
+// 		return data.map(x => x ** 2)
+// 	})
+// 	.then(data => {
+// 		console.log(data)
+// 	})
+// 	// catch - відловити помилку
+// 	.catch(err => {
+// 		console.log(err)
+// 	})
+// 	// finally - визветься в будь якому випадку
+// 	.finally(() => console.log('Finally'))
 
-// const getData = () => new Promise((resolve) => resolve([1, 2, 3]))
+const getData = () => new Promise(resolve => resolve([1, 2, 3]))
+// getData().then(array => console.log(array))
 
-// async function asyncExample() {
-//   try {
-//     await delay(3000)
-//     const data = await getData()
-//     console.log(data)
-//   } catch (err) {
-//     console.log(err)
-//   } finally {
-//     console.log('Finally')
-//   }
-// }
-
-// asyncExample()
+// 2 синтаксис async await кращий варіант
+async function asyncExample() {
+	try {
+		await delay(3000)
+		const data = await getData()
+		console.log(data)
+	} catch (err) {
+		console.log(err)
+	} finally {
+		console.log('Finally')
+	}
+}
+asyncExample()
